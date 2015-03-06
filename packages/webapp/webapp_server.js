@@ -15,7 +15,7 @@ var Future = Npm.require('fibers/future');
 var Fiber = Npm.require('fibers');
 
 var SHORT_SOCKET_TIMEOUT = 5*1000;
-var LONG_SOCKET_TIMEOUT = 120*1000;
+var LONG_SOCKET_TIMEOUT = 180*1000;
 
 WebApp = {};
 WebAppInternals = {};
