@@ -2,6 +2,8 @@
 
 This repository demonstrates an issue regarding request timeout in Meteor's Webapp package.
 
+This problem has been repoted against the Meteor project in [issue 3826](https://github.com/meteor/meteor/issues/3826).
+
 ## Request Timeouts in Meteor
 
 Internally, Meteor uses Node.js's [http.Server](http://nodejs.org/api/all.html#all_class_http_server) to handle incoming requests.
