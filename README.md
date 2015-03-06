@@ -1,5 +1,4 @@
-Meteor Timeout Bug
-##################
+# Meteor Timeout Bug
 
 This repository demonstrates an issue regarding request timeout in Meteor's Webapp package.
 
