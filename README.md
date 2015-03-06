@@ -19,13 +19,13 @@ var LONG_SOCKET_TIMEOUT = 120*1000;
 ```
 ## The problem
 
-Even by increasing the LONG_SOCKET_TIMEOUT value beyond two minutes the sockets are forcefully closed at the 2 minute mark.
+Even by increasing the LONG_SOCKET_TIMEOUT value beyond two minutes connections are closed after 120 seconds.
 
 ## Demonstration
 
 This repository contains a vanilla Meteor 1.0.3.2 installation with two server side routes: one returning a response after 10 seconds, and the other after 130 seconds.
 
-In addition this repository overwrites the `webapp` package and sets the `LONG_SOCKET_TIMEOUT` value to 180 seconds.
+In addition this repository overwrites the `webapp` package and [sets the `LONG_SOCKET_TIMEOUT` value to 180 seconds](https://github.com/nnevala/meteor-timeout-bug/blob/master/packages/webapp/webapp_server.js#L18).
 
 This means that both routes **should** return a response. This is what happens instead:
 
@@ -54,6 +54,8 @@ ping
 curl -v localhost:3000/timeout-10sec  0.00s user 0.00s system 0% cpu 10.012 total
 ```
 
+After 10 seconds `ping` is returned from the server as expected.
+
 ### 130 second timeout:
 
 ```
@@ -72,3 +74,5 @@ curl -v localhost:3000/timeout-10sec  0.00s user 0.00s system 0% cpu 10.012 tota
 curl: (52) Empty reply from server
 curl -v localhost:3000/timeout-130sec  0.00s user 0.00s system 0% cpu 2:00.01 total
 ```
+
+After 2 minutes the connection is killed, even though `LONG_SOCKET_TIMEOUT` value is configured to 3 minutes.
